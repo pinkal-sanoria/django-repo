@@ -1,0 +1,22 @@
+<!-- update_employee.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Employee</title>
+</head>
+<body>
+    <h1>Update Employee</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ employee.user.name }}">
+        <br>
+        <label for="status">Status:</label>
+        <input type="checkbox" id="status" name="status" {% if employee.user.Status %}checked{% endif %}>
+        <br>
+        <button  type="submit">Update</button>
+    </form>
+</body>
+</html>

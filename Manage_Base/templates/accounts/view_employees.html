@@ -1,0 +1,36 @@
+<!-- view_employees.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Employees</title>
+</head>
+<body>
+    <h2>Your Employees</h2>
+    <p>Please update the details and status</p>
+    <ul>
+        {% for employee in employees %}
+
+        <li>
+            <form method="post" action="{% url 'update_employee' employee.id %}">
+                {% csrf_token %}
+
+                {{ employee.user.name }}
+              
+
+                <label for="name{{ employee.id }}">Name:</label>
+                <input type="text" id="name{{ employee.id }}" name="name" value="{{ employee.user.name }}">
+             
+                <label for="status{{ employee.id }}">Status:</label>
+                <input type="checkbox" id="status{{ employee.id }}" name="status" {% if employee.user.Status %}checked{% endif %}>
+                {{employee.confirmation_state}}
+                <button type="submit">Update</button>
+               <br>
+               <br>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
