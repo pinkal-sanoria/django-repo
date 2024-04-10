@@ -19,24 +19,21 @@ def add_manager(request):
             name=name,
         )
         
-        # Retrieve the 'Manager' role from the database
         manager_role = UserRole.objects.get(role_name="Manager")
 
         # Assign the 'Manager' role to the user
         user.role = manager_role
         user.save()
 
-        # Create a Manager object for the user
         Manager.objects.create(user=user)
 
-        # Redirect to success page or any other URL
-        return redirect('home')  # Adjust the redirect URL as needed
+        
+        return redirect('home')  
 
     return render(request, 'accounts/add_manager.html')
 
 
 def home(request):
-    # Retrieve all employees
     employees = Employee.objects.all()
     return render(request, 'accounts/home.html', {'employees': employees})
 
@@ -57,7 +54,6 @@ def manager_login(request):
                 return render(request, 'accounts/manager_login.html', {'error_message': 'Invalid credentials'})
     return render(request, 'accounts/manager_login.html')
 
-# views.py
 # @login_required
 def view_employees(request):
     employees = Employee.objects.all()
@@ -66,14 +62,11 @@ def view_employees(request):
 
 def add_employee(request):
     if request.method == 'POST':
-        # Assuming you receive user email and manager email in the request POST data
         user_email = request.POST.get('user_email')
         manager_email = request.POST.get('manager_email')
         
-        # Get or create user
         user, created = User.objects.get_or_create(email=user_email)
         
-        # Get manager if email is provided
         manager = None
         if manager_email:
             manager, _ = Manager.objects.get_or_create(user__email=manager_email)
@@ -81,7 +74,7 @@ def add_employee(request):
         # Create employee
         Employee.objects.create(user=user, manager=manager)
         
-        return redirect('add_employee')  # Redirect to success page or any other URL
+        return redirect('add_employee') 
         
     return render(request, 'accounts/add_employee.html')
 
@@ -94,9 +87,6 @@ def update_employee(request, employee_id):
         print(name)
         print(status)
         
-        # Update user's name
-        
-       
         employee.user.name = name
         # Update user's status
         if status == "on":

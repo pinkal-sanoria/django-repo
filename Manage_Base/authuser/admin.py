@@ -10,9 +10,8 @@ class EmployeeAdmin(admin.ModelAdmin):
 class ManagerAdmin(admin.ModelAdmin):
     list_display = ('user',)
 
-# Register the User and UserRole models with the custom admin class
+
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserRole)
-# Register the Employee and Manager models with the custom admin classes
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Manager, ManagerAdmin)

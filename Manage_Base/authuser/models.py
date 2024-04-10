@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.utils import timezone
 
-
+# Role models
 class UserRole(models.Model):
     role_name = models.CharField(max_length=50, unique=True)
 
@@ -33,7 +33,8 @@ class CustomUserManager(BaseUserManager):
 
 class Manager(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE, related_name='manager')
-
+    
+# User Model
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=255, blank=True)
@@ -57,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def get_short_name(self):
         return self.name or self.email.split('@')[0]
-
+# Employee model
 class Employee(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE, related_name='employee')
     manager = models.ForeignKey(Manager, on_delete=models.SET_NULL, null=True, blank=True)

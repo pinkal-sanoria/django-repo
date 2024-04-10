@@ -1,0 +1,7 @@
+admin
+Email:-admin@gmail.com
+password:- admin
+
+Manager
+Email:-manager@gmail.com
+password:- adm
